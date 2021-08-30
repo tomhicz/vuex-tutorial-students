@@ -2,20 +2,33 @@
   <div>
     <h3>Add Todo</h3>
     <div class="add">
+      <form v-on:submit.prevent="submitTodo">
+        <input v-model="newTodo" type="text" />
+        <input type="submit" value="Add Todo" />
+      </form>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 
 export default {
   name: "AddTodo",
   data: () => {
+    return { newTodo: "" };
   },
   methods: {
-
-  }
-}
+    ...mapActions(["postTodo"]),
+    //Changed from this submitTodo(: () =>) { to this:
+    submitTodo() {
+      // const val = this.$refs.inputRef.value;
+      // console.log("hello");
+      // console.log(this.newTodo);
+      this.postTodo(this.newTodo);
+    },
+  },
+};
 </script>
 
 <style scoped>
